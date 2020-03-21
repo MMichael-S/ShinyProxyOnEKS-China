@@ -27,7 +27,7 @@ R 是广泛用于统计分析、绘图的开源语言和操作环境，也是用
 
 [Open Analytics](https://www.openanalytics.eu/) 在 Shiny 开源版本的基本功能之上开发了 [ShinyProxy](https://www.shinyproxy.io/)，提供了一系列的扩展的增强特性，如身份验证和授权、 TLS 协议支持、Shiny 应用程序容器化及多并发支持等，同时 ShinyProxy 是基于 Apache 许可的100％开源项目。ShinyProxy 前端使用成熟的企业级 Java 框架 [Spring Boot](https://spring.io/projects/spring-boot) 来完成Web应用程序的用户认证、鉴权及后端Shiny应用的调度和管理，后端基于 Docker 技术灵活运行封装了 R 应用的 Shiny 容器。
 
-[Image: image.png]
+![ShinyProxy 架构](https://github.com/MMichael-S/ShinyProxyOnEKS-China/blob/master/img/shinyproxy-arch.png)
 
 虽然 ShinyProxy 提供了面向 Shiny 应用的容错机制和高可用设计，但在实际的企业级环境部署时，用户仍然会面临很多不同层面的风险和隐患，均会导致面向用户的 Shiny 平台无法正常提供服务和访问。
 
@@ -37,7 +37,7 @@ R 是广泛用于统计分析、绘图的开源语言和操作环境，也是用
 * 如ShinyProxy自身的配置异常或运行时异常等
 
 
-[Image: image.png]
+![ShinyProxy 的故障风险](https://github.com/MMichael-S/ShinyProxyOnEKS-China/blob/master/img/shinyproxy-risk.png)
 
 基于以上的因素，我们仍然需要为 ShinyProxy 设计一套高可靠、高性能的技术平台及架构，用于支撑 整个平台的良好运行。**在本文中我们将重点介绍如何结合 Amazon EKS 及 AWS 平台上其他成熟服务，快速构建一个拥有高安全性、高可靠性、高弹性且成本优化的高品质 Shiny 平台。**
 
@@ -65,7 +65,9 @@ R 是广泛用于统计分析、绘图的开源语言和操作环境，也是用
 * Amazon Elastic File System（EFS）：用于存放 Shiny应用所需的持久化共享数据；
 
 
-[Image: image.png]**整个平台的构建过程将主要分为三个步骤：**
+![ShinyProxy On EKS架构](https://github.com/MMichael-S/ShinyProxyOnEKS-China/blob/master/img/ShinyOnEKS-Arch.png)
+
+**整个平台的构建过程将主要分为三个步骤：**
 
 * 创建 Amazon EKS 服务
 * 部署 ShinyProxy 
@@ -117,10 +119,12 @@ kubectl get svc --watch
 ```
 
 管理服务器终端将显示创建过程
-[Image: image.png]
+
+![终端显示 EKS 创建过程](https://github.com/MMichael-S/ShinyProxyOnEKS-China/blob/master/img/EKS-Create.png)
+
 eksctl 将通过 AWS Cloudformation 服务完成 EKS 集群创建，也可在控制台 Cloudformation 服务中查看创建过程，以及在出现异常时查看和分析 Cloudformation 中的事件了解详细的错误原因。
 
-[Image: image.png]
+![Cloudformation 显示 EKS 创建过程](https://github.com/MMichael-S/ShinyProxyOnEKS-China/blob/master/img/EKS-Create-Console.png)
 
 ### 2.2 节点组创建
 
@@ -463,7 +467,8 @@ kubectl get svc
 
 访问负载均衡器地址及端口，正常可显示 ShinyProxy 的登录界面。输入之前配置的用户名和密码信息，可显示 ShinyProxy 的管理界面，点击其中已有的 Shiny 应用即可启动它们。至此，ShinyProxy 平台已经成功地运行在 Amazon EKS 服务上。
 
-[Image: image.png][Image: image.png]
+![ShinyProxy 主界面](https://github.com/MMichael-S/ShinyProxyOnEKS-China/blob/master/img/ShinyProxy-GUI.png)
+![Shiny 应用的运行界面](https://github.com/MMichael-S/ShinyProxyOnEKS-China/blob/master/img/ShinyProxy-Shiny-GUI.png)
 
 ## 四、特性及优化
 
@@ -659,7 +664,4 @@ https://aws.amazon.com/cn/ecr/
 
 https://eksctl.io/
 
-
-
-## 本篇作者
 
