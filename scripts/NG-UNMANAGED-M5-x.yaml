@@ -22,14 +22,14 @@ nodeGroups:
       - 'sudo /opt/aws/amazon-cloudwatch-agent/bin/amazon-cloudwatch-agent-ctl -m ec2 -a start'
     instancesDistribution:
       maxPrice: 1
-      instanceTypes: ["c5.xlarge"] # eksctl 0.14.0版本后可只指定一种实例类型
+      instanceTypes: ["m5.xlarge"] # eksctl 0.14.0版本后可只指定一种实例类型
       onDemandBaseCapacity: 0
       onDemandPercentageAboveBaseCapacity: 0
       spotInstancePools: 1
     ssh:
       allow: true
       publicKeyName: ZHY-Privatekey
-    labels: {role: worker, NodeSize: c5.xlarge}
+    labels: {role: worker, NodeSize: m5.xlarge}
     tags:
       {
       "Environment": "Alpha-Test",

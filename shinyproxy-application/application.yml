@@ -3,11 +3,11 @@ proxy:
   authentication: simple
   admin-groups: admins
   users:
-  - name: fshi
-    password: fshi123
+  - name: admin
+    password: Admin@123
     groups: admins
   - name: user
-    password: User@1234
+    password: User@123
     groups: guest
   - name: guest
     password: Guest@123
@@ -22,13 +22,13 @@ proxy:
     namespace: shiny
     image-pull-policy: IfNotPresent
     image-pull-secret: 
-    node-selector: NodeSize=c5.xlarge
+    node-selector: NodeSize=m5.xlarge
   specs:
   - id: 00_demo_shiny
     display-name: Simple Shiny Application Demo
     description: https://github.com/openanalytics/shinyproxy-template
     container-cmd: ["sh", "/usr/bin/shiny-server.sh"]
-    container-image: 467455613745.dkr.ecr.cn-northwest-1.amazonaws.com.cn/shiny-application:v1
+    container-image: <AWS-ACCOUNT-ID>.dkr.ecr.cn-northwest-1.amazonaws.com.cn/shiny-application:v1
   - id: 01_hello
     display-name: Hello Application
     description: Application which demonstrates the basics of a Shiny app
@@ -48,13 +48,6 @@ proxy:
     container-cmd: ["python", "app.py"]
     container-image: openanalytics/shinyproxy-dash-demo
     access-groups: [admins, guest, scientists, mathematicians] 
-  - id: scsat
-    display-name: scsat
-    description: None
-    container-cmd: ["R", "-e", 'shiny::runApp("/root/Shiny_seurat")']
-    container-image: 467455613745.dkr.ecr.cn-northwest-1.amazonaws.com.cn/scat:0.1.0
-    container-volumes: ["/mnt/data_zs/#{proxy.userId}:/root/Shiny_seurat/Users/#{proxy.userId}"]
-    access-groups: admins
 
 spring:
   servlet:
