@@ -19,7 +19,7 @@ R 是广泛用于统计分析、绘图的开源语言和操作环境，也是用
 来自全球各地的行业专家、数据科学家及分析师已基于 Shiny 创建了许多功能强大的 Web 应用，如大家近期最为关注的COVID-19病毒疫情，来自 London School of Hygiene & Tropical Medicine 的 Edward Parker 博士使用 Shiny 构建了可多维度了解和分析 COVID-19 疫情数据的在线看板。
 
 ![来源：https://shiny.rstudio.com/gallery/covid19-tracker.html](https://github.com/MMichael-S/ShinyProxyOnEKS-China/blob/master/img/shiny-COVID-19.png)
-
+来源：https://shiny.rstudio.com/gallery/covid19-tracker.html
 
 在 Shiny 的开源版本中未提供诸多重要功能，如身份验证、多 Shiny 进程支持、Shiny 应用性能监控、基于 SSL 的安全连接、资源分配控制等。如何实现企业级的安全认证？如何实现秒级的故障恢复？如何实现海量并发用户的访问支撑？ 这些因素均使得用户在构建面向多用户场景的企业生产环境时遇到了极大的障碍。
 
@@ -28,6 +28,7 @@ R 是广泛用于统计分析、绘图的开源语言和操作环境，也是用
 [Open Analytics](https://www.openanalytics.eu/) 在 Shiny 开源版本的基本功能之上开发了 [ShinyProxy](https://www.shinyproxy.io/)，提供了一系列的扩展的增强特性，如身份验证和授权、 TLS 协议支持、Shiny 应用程序容器化及多并发支持等，同时 ShinyProxy 是基于 Apache 许可的100％开源项目。ShinyProxy 前端使用成熟的企业级 Java 框架 [Spring Boot](https://spring.io/projects/spring-boot) 来完成Web应用程序的用户认证、鉴权及后端Shiny应用的调度和管理，后端基于 Docker 技术灵活运行封装了 R 应用的 Shiny 容器。
 
 ![ShinyProxy 架构](https://github.com/MMichael-S/ShinyProxyOnEKS-China/blob/master/img/shinyproxy-arch.png)
+图片说明：ShinyProxy 架构
 
 虽然 ShinyProxy 提供了面向 Shiny 应用的容错机制和高可用设计，但在实际的企业级环境部署时，用户仍然会面临很多不同层面的风险和隐患，均会导致面向用户的 Shiny 平台无法正常提供服务和访问。
 
@@ -38,6 +39,7 @@ R 是广泛用于统计分析、绘图的开源语言和操作环境，也是用
 
 
 ![ShinyProxy 的故障风险](https://github.com/MMichael-S/ShinyProxyOnEKS-China/blob/master/img/shinyproxy-risk.png)
+图片说明：ShinyProxy 的故障风险
 
 基于以上的因素，我们仍然需要为 ShinyProxy 设计一套高可靠、高性能的技术平台及架构，用于支撑 整个平台的良好运行。**在本文中我们将重点介绍如何结合 Amazon EKS 及 AWS 平台上其他成熟服务，快速构建一个拥有高安全性、高可靠性、高弹性且成本优化的高品质 Shiny 平台。**
 
@@ -66,6 +68,7 @@ R 是广泛用于统计分析、绘图的开源语言和操作环境，也是用
 
 
 ![ShinyProxy On EKS架构](https://github.com/MMichael-S/ShinyProxyOnEKS-China/blob/master/img/ShinyOnEKS-Arch.png)
+图片说明：ShinyProxy On EKS 架构
 
 **整个平台的构建过程将主要分为三个步骤：**
 
@@ -121,10 +124,12 @@ kubectl get svc --watch
 管理服务器终端将显示创建过程
 
 ![终端显示 EKS 创建过程](https://github.com/MMichael-S/ShinyProxyOnEKS-China/blob/master/img/EKS-Create.png)
+图片说明：终端显示 EKS 创建过程
 
 eksctl 将通过 AWS Cloudformation 服务完成 EKS 集群创建，也可在控制台 Cloudformation 服务中查看创建过程，以及在出现异常时查看和分析 Cloudformation 中的事件了解详细的错误原因。
 
 ![Cloudformation 显示 EKS 创建过程](https://github.com/MMichael-S/ShinyProxyOnEKS-China/blob/master/img/EKS-Create-Console.png)
+图片说明：Cloudformation 显示 EKS 创建过程
 
 ### 2.2 节点组创建
 
@@ -468,7 +473,10 @@ kubectl get svc
 访问负载均衡器地址及端口，正常可显示 ShinyProxy 的登录界面。输入之前配置的用户名和密码信息，可显示 ShinyProxy 的管理界面，点击其中已有的 Shiny 应用即可启动它们。至此，ShinyProxy 平台已经成功地运行在 Amazon EKS 服务上。
 
 ![ShinyProxy 主界面](https://github.com/MMichael-S/ShinyProxyOnEKS-China/blob/master/img/ShinyProxy-GUI.png)
+图片说明：ShinyProxy 主界面
+
 ![Shiny 应用的运行界面](https://github.com/MMichael-S/ShinyProxyOnEKS-China/blob/master/img/ShinyProxy-Shiny-GUI.png)
+图片说明：Shiny 应用的运行界面
 
 ## 四、特性及优化
 
@@ -636,8 +644,8 @@ Spot 实例适合用于各种无状态、容错或者灵活的应用程序，在
 Amazon EKS 提供了AWS原生的完备的监控和运维体系，另外也与开源生态中主流的 Kubernetes 管理工具、监控工具等良好集成， 可参考 **常用的运维和监控方式** 进行部署，构建完备的 Amazon EKS 及 Shiny 平台的运维体系。其他如 Kubernetes Metrics Server、Prometheus、Grafana等的部署，可参见：[Prometheus 的控制层面指标](https://docs.aws.amazon.com/zh_cn/eks/latest/userguide/prometheus.html)、[安装 Kubernetes Metrics Server](https://docs.aws.amazon.com/zh_cn/eks/latest/userguide/metrics-server.html)。
 
 ![EKS Dashboard](https://github.com/MMichael-S/ShinyProxyOnEKS-China/blob/master/img/dashboard.png)
+图片说明：EKS Dashboard 管理界面
 
-<center>图片说明：EKS Dashboard 管理界面</center>
 
 ## 方案小结
 
