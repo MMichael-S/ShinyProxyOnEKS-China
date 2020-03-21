@@ -10,6 +10,7 @@
 * **AWS各区域，本文以AWS 宁夏区域为例**
 * 建议在AWS中启用一台Linux服务器用作EKS集群管理服务器
 * 将自动创建新的VPC用于EKS集群
+* Amazon EKS 1.15 / eksctl 0.15.0 / kubectl v1.15.10-eks-bac369 / AWS CLI aws-cli/1.18.21
 
 
 
