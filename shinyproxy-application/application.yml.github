@@ -1,0 +1,57 @@
+proxy:
+  port: 8080
+  authentication: social
+  social:
+    github:
+      app-id: 6a226f421f0b5320f1b3
+      app-secret: 9ea634884263e8d2b68eaaccac3ee0b7aa03e0dc
+  container-backend: kubernetes
+  container-wait-time: 300000
+  heartbeat-rate: 10000
+  heartbeat-timeout: 300000
+  kubernetes:
+    internal-networking: true
+    url: http://localhost:8001
+    namespace: shiny
+    image-pull-policy: IfNotPresent
+    image-pull-secret: 
+    node-selector: NodeSize=c5.xlarge
+  specs:
+  - id: 00_demo_shiny
+    display-name: Simple Shiny Application Demo
+    description: https://github.com/openanalytics/shinyproxy-template
+    container-cmd: ["R", "-e", "shiny::runApp('/root/euler')"]
+    container-image: 467455613745.dkr.ecr.cn-northwest-1.amazonaws.com.cn/shiny-application:latest
+  - id: 01_hello
+    display-name: Hello Application
+    description: Application which demonstrates the basics of a Shiny app
+    container-cmd: ["R", "-e", "shinyproxy::run_01_hello()"]
+    container-image: openanalytics/shinyproxy-demo
+  - id: 06_tabsets
+    display-name: Openanalytics shinyproxy-demo tabsets
+    description: Application which demonstrates a Shiny app
+    container-cmd: ["R", "-e", "shinyproxy::run_06_tabsets()"]
+    container-image: openanalytics/shinyproxy-demo
+  - id: dash-demo
+    display-name: Dash Demo Application
+    description: https://github.com/openanalytics/shinyproxy-dash-demo
+    port: 8050
+    container-cmd: ["python", "app.py"]
+    container-image: openanalytics/shinyproxy-dash-demo
+  - id: scsat
+    display-name: scsat
+    description: None
+    container-cmd: ["R", "-e", 'shiny::runApp("/root/Shiny_seurat")']
+    container-image: 467455613745.dkr.ecr.cn-northwest-1.amazonaws.com.cn/scat:0.1.0
+    container-volumes: ["/mnt/data_zs/#{proxy.userId}:/root/Shiny_seurat/Users/#{proxy.userId}"]
+    access-groups: [admins, guest, scientists, mathematicians]
+
+spring:
+  servlet:
+    multipart:
+      max-file-size: 200MB
+      max-request-size: 200MB
+
+logging:
+  file:
+    shinyproxy.log

@@ -1,0 +1,14 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: shinyproxy
+  namespace: shiny
+spec:
+  ports:
+    - port: 80
+      targetPort: 8080
+      protocol: TCP
+  type: NodePort
+  selector:
+    run: shinyproxy
+
