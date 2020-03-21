@@ -166,3 +166,7 @@ Amazon EKS 提供了AWS原生的完备的监控和运维体系，另外也与开
 ![EKS Dashboard](https://github.com/MMichael-S/ShinyProxyOnEKS-China/blob/master/img/dashboard.png)
 图片说明：EKS Dashboard 管理界面
 
+
+## License
+
+This library is licensed under the MIT-0 License. See the LICENSE file.

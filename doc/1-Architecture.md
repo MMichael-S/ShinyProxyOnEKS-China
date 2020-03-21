@@ -21,3 +21,8 @@
 * 围绕 Shiny 应用场景的进一步优化配置
 
 在开始 Amazon EKS 服务的创建和部署前，请先参考 **[准备工作](https://github.com/MMichael-S/ShinyProxyOnEKS-China/blob/master/doc/I-Preparation.md)** 和 **[管理机配置](https://github.com/MMichael-S/ShinyProxyOnEKS-China/blob/master/doc/II-ManagementServer.md)** 完成前期的准备工作。
+
+
+## License
+
+This library is licensed under the MIT-0 License. See the LICENSE file.

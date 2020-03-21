@@ -272,4 +272,7 @@ kubectl get svc
 ![Shiny 应用的运行界面](https://github.com/MMichael-S/ShinyProxyOnEKS-China/blob/master/img/ShinyProxy-Shiny-GUI.png)
 图片说明：Shiny 应用的运行界面
 
+## License
+
+This library is licensed under the MIT-0 License. See the LICENSE file.
 

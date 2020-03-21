@@ -42,3 +42,7 @@ eksctl utils update-cluster-logging --enable-types all --approve --region=cn-nor
 可为 EKS 集群配置更便于查看、管理集群、节点、Pod等运行状态的图形管理面板，完成配置后，用户可以很方便的在面板中查看到集群不同层面的运行情况、资源耗用情况、异常及故障信息等。您可参考教程：[部署 Kubernetes Web UI (控制面板)](https://docs.aws.amazon.com/zh_cn/eks/latest/userguide/dashboard-tutorial.html) 完成相应配置。
 
 
+## License
+
+This library is licensed under the MIT-0 License. See the LICENSE file.
+

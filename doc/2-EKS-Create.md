@@ -120,3 +120,7 @@ eksctl create nodegroup --config-file=./EKS-Shiny-NodeGroup.yaml
 kubectl get node --wide --watch
 
 
+## License
+
+This library is licensed under the MIT-0 License. See the LICENSE file.
+
