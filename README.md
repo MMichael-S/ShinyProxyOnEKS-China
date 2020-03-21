@@ -638,6 +638,8 @@ Amazon EKS 提供了AWS原生的完备的监控和运维体系，另外也与开
 
 ![EKS Dashboard](https://github.com/MMichael-S/ShinyProxyOnEKS-China/blob/master/img/dashboard.png)EKS Dashboard
 
+<center><font color=red size=10>图片说明：EKS Dashboard 管理界面</font></center>
+
 ## 方案小结
 
 经过上面的部署，我们验证了 ShinyProxy 及 Shiny 应用在 Amazon EKS 平台良好运行的可行性。同时，我们可以结合 AWS 的其他成熟服务，围绕着安全性、可靠性、灵活性、成本优化等多个方面进行了深度优化，从而可以为您及您的客户提供高品质的 Shiny 平台。 希望您早日在 AWS 上构建属于您自己的 Shiny 平台，如果在部署和使用中遇到问题，也欢迎您及时与我们联系，AWS 架构师团队将非常乐意协助您解决技术问题并提供更多的优化建议。
