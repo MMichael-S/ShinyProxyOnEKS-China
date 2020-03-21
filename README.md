@@ -635,10 +635,9 @@ Spot 实例适合用于各种无状态、容错或者灵活的应用程序，在
 
 Amazon EKS 提供了AWS原生的完备的监控和运维体系，另外也与开源生态中主流的 Kubernetes 管理工具、监控工具等良好集成， 可参考 **常用的运维和监控方式** 进行部署，构建完备的 Amazon EKS 及 Shiny 平台的运维体系。其他如 Kubernetes Metrics Server、Prometheus、Grafana等的部署，可参见：[Prometheus 的控制层面指标](https://docs.aws.amazon.com/zh_cn/eks/latest/userguide/prometheus.html)、[安装 Kubernetes Metrics Server](https://docs.aws.amazon.com/zh_cn/eks/latest/userguide/metrics-server.html)。
 
+![EKS Dashboard](https://github.com/MMichael-S/ShinyProxyOnEKS-China/blob/master/img/dashboard.png)
 
-![EKS Dashboard](https://github.com/MMichael-S/ShinyProxyOnEKS-China/blob/master/img/dashboard.png)EKS Dashboard
-
-<center><font color=red size=10>图片说明：EKS Dashboard 管理界面</font></center>
+<center>图片说明：EKS Dashboard 管理界面</center>
 
 ## 方案小结
 
