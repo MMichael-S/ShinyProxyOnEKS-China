@@ -97,7 +97,3 @@ https://aws.amazon.com/cn/ecr/
 https://eksctl.io/
 
 
-
-## 本篇作者
-
-
