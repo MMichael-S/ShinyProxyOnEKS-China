@@ -9,10 +9,19 @@ sudo apt install jq -y
 ##部署metrics server
 DOWNLOAD_URL=$(curl -Ls "https://api.github.com/repos/kubernetes-sigs/metrics-server/releases/latest" | jq -r .tarball_url)
 DOWNLOAD_VERSION=$(grep -o '[^/v]*$' <<< $DOWNLOAD_URL)
-#curl -Ls $DOWNLOAD_URL -o metrics-server-$DOWNLOAD_VERSION.tar.gz
-#mkdir metrics-server-$DOWNLOAD_VERSION
-#tar -xzf metrics-server-$DOWNLOAD_VERSION.tar.gz --directory metrics-server-$DOWNLOAD_VERSION --strip-components 1
-kubectl apply -f ./gcr.io/metrics-server-$DOWNLOAD_VERSION/deploy/1.8+/
+curl -Ls $DOWNLOAD_URL -o metrics-server-$DOWNLOAD_VERSION.tar.gz
+mkdir metrics-server-$DOWNLOAD_VERSION
+tar -xzf metrics-server-$DOWNLOAD_VERSION.tar.gz --directory metrics-server-$DOWNLOAD_VERSION --strip-components 1
+##修改 metrics-server-0.3.6/deploy/1.8+ 目录下 metrics-server-deployment.yaml 文件中 metrics-server 的容器为三方源
+vi metrics-server-0.3.6/deploy/1.8+/metrics-server-deployment.yaml
+
+## metrics-server 替换三方源
+      - name: metrics-server
+        # image: k8s.gcr.io/metrics-server-amd64:v0.3.6
+        image: 三方源/metrics-server-amd64:v0.3.6
+        imagePullPolicy: Always
+
+kubectl apply -f ./metrics-server-$DOWNLOAD_VERSION/deploy/1.8+/
 
 ## 查看部署
 kubectl get deployment metrics-server -n kube-system
@@ -37,8 +46,8 @@ kubectl get deployment metrics-server -n kube-system
           args:
             - --auto-generate-certificates
             - --namespace=kubernetes-dashboard
-*            **-** **--**token**-**ttl**=**43200*
-*            **-** **--**enable**-**skip**-**login*
+*           - --token-ttl=43200
+*           - --enable-skip-login
 
 COMMENT
 
