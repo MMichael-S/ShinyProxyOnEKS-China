@@ -18,7 +18,7 @@ kubectl -n kube-system edit deployment.apps/cluster-autoscaler
         - --skip-nodes-with-system-pods=false
 
 ## 通过 kubectl 应用配置
-kubectl -n kube-system set image deployment.apps/cluster-autoscaler cluster-autoscaler=gcr.azk8s.cn/google_containers/cluster-autoscaler:v1.14.7
+kubectl -n kube-system set image deployment.apps/cluster-autoscaler cluster-autoscaler=三方源/cluster-autoscaler:v1.14.7
 ## kubectl -n kube-system set image deployment.apps/cluster-autoscaler cluster-autoscaler=k8s.gcr.io/cluster-autoscaler:v1.14.7
 
 ## 查看Cluster Autoscaler日志

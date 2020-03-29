@@ -1,0 +1,35 @@
+apiVersion: eksctl.io/v1alpha5
+kind: ClusterConfig
+
+metadata:
+  name: EKS-SHINY
+  region: cn-northwest-1
+
+nodeGroups:
+  - name: EKS-Shiny-NodeGroup
+    instanceType: m5.xlarge
+    minSize: 1
+    maxSize: 10
+    desiredCapacity: 2
+    volumeSize: 30
+    ssh:
+      allow: true
+      publicKeyName: # EC2密钥对
+    labels: {role: worker, NodeSize: m5.xlarge}
+    tags:
+      {
+      "Environment": "Alpha-Test",
+      "Application": "ShinyProxy"
+      }
+    iam:
+      attachPolicyARNs:
+        - arn:aws-cn:iam::aws:policy/AmazonEKSWorkerNodePolicy
+        - arn:aws-cn:iam::aws:policy/AmazonEKS_CNI_Policy
+        - arn:aws-cn:iam::aws:policy/AmazonS3FullAccess
+      withAddonPolicies:
+        albIngress: true
+        autoScaler: true
+        cloudWatch: true
+        ebs: true
+        efs: true
+
