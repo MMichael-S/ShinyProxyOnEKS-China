@@ -46,8 +46,8 @@ kubectl get deployment metrics-server -n kube-system
           args:
             - --auto-generate-certificates
             - --namespace=kubernetes-dashboard
-*           - --token-ttl=43200
-*           - --enable-skip-login
+            - --token-ttl=43200
+            - --enable-skip-login
 
 COMMENT
 
