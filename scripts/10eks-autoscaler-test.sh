@@ -35,7 +35,7 @@ kubectl apply -f ./ca-test-nginx.yaml
 
 ## 将测试Nginx容器扩展到20个
 ## 是否触发自动扩展与当前运行的节点数量、节点配置有关
-kubectl scale --replicas=20 deployment/nginx-to-scaleout
+kubectl scale --replicas=4 deployment/nginx-to-scaleout
 
 ## 可通过下面的命令监控Nginx容器的部署状态
 watch -n 2 kubectl get deployment/nginx-to-scaleout
@@ -45,5 +45,5 @@ watch -n 2 kubectl get deployment/nginx-to-scaleout
 kubectl get node -o wide
 
 ## 测试完成后删除测试过程的部署
-kubectl delete -f ./ca-test-nginx.yaml
+# kubectl delete -f ./ca-test-nginx.yaml
 
