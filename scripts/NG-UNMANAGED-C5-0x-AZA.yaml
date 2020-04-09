@@ -6,7 +6,8 @@ metadata:
   region: cn-northwest-1
 
 nodeGroups:
-  - name: NG-UNMANAGED-C5-x
+  - name: NG-UNMANAGED-C5-0x-AZA
+    availabilityZones: ["cn-northwest-1a"]
     minSize: 1
     maxSize: 10
     desiredCapacity: 1
@@ -22,14 +23,14 @@ nodeGroups:
       - 'sudo /opt/aws/amazon-cloudwatch-agent/bin/amazon-cloudwatch-agent-ctl -m ec2 -a start'
     instancesDistribution:
       maxPrice: 1
-      instanceTypes: ["m5.xlarge"] # eksctl 0.14.0版本后可只指定一种实例类型
+      instanceTypes: ["c5.large"] # eksctl 0.14.0版本后可只指定一种实例类型
       onDemandBaseCapacity: 0
       onDemandPercentageAboveBaseCapacity: 0
       spotInstancePools: 1
     ssh:
       allow: true
       publicKeyName: ZHY-Privatekey
-    labels: {role: worker, NodeSize: m5.xlarge}
+    labels: {role: worker, NodeSize: c5.large, az: cn-northwest-1a}
     tags:
       {
       "Environment": "Alpha-Test",

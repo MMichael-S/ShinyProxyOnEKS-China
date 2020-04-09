@@ -1,0 +1,54 @@
+apiVersion: eksctl.io/v1alpha5
+kind: ClusterConfig
+
+metadata:
+  name: EKS-ZHY
+  region: cn-northwest-1
+
+nodeGroups:
+  - name: NG-UNMANAGED-C5-0x-AZB
+    availabilityZones: ["cn-northwest-1b"]
+    minSize: 1
+    maxSize: 10
+    desiredCapacity: 1
+    volumeSize: 30
+    preBootstrapCommands:
+      - 'sudo mkdir -p /mnt/data_zs/'
+      - 'sudo mount -t nfs4 -o nfsvers=4.1,rsize=1048576,wsize=1048576,hard,timeo=600,retrans=2,noresvport fs-0e846deb.efs.cn-northwest-1.amazonaws.com.cn:/ /mnt/data_zs/'
+      - 'sudo chmod -R 777 /mnt/data_zs'
+      - 'wget https://fshi-share-nx.s3.cn-northwest-1.amazonaws.com.cn/amazon-cloudwatch-agent.rpm'
+      - 'sudo yum localinstall amazon-cloudwatch-agent.rpm -y'
+      - 'wget https://fshi-share-nx.s3.cn-northwest-1.amazonaws.com.cn/cw-agent-config.json'
+      - 'sudo /opt/aws/amazon-cloudwatch-agent/bin/amazon-cloudwatch-agent-ctl -a fetch-config -m ec2 -c file:/tmp/cw-agent-config.json -s'
+      - 'sudo /opt/aws/amazon-cloudwatch-agent/bin/amazon-cloudwatch-agent-ctl -m ec2 -a start'
+    instancesDistribution:
+      maxPrice: 1
+      instanceTypes: ["c5.large"] # eksctl 0.14.0版本后可只指定一种实例类型
+      onDemandBaseCapacity: 0
+      onDemandPercentageAboveBaseCapacity: 0
+      spotInstancePools: 1
+    ssh:
+      allow: true
+      publicKeyName: ZHY-Privatekey
+    labels: {role: worker, NodeSize: c5.large, az: cn-northwest-1b}
+    tags:
+      {
+      "Environment": "Alpha-Test",
+      "Application": "ShinyProxy"
+      }
+    iam:
+      attachPolicyARNs:
+        - arn:aws-cn:iam::aws:policy/AmazonEKSWorkerNodePolicy
+        - arn:aws-cn:iam::aws:policy/AmazonEKS_CNI_Policy
+        - arn:aws-cn:iam::aws:policy/AmazonS3FullAccess
+        - arn:aws-cn:iam::aws:policy/CloudWatchFullAccess
+      withAddonPolicies:
+        externalDNS: true
+        certManager: true
+        albIngress: true
+        appMesh: true
+        autoScaler: true
+        cloudWatch: true
+        ebs: true
+        efs: true
+        fsx: true
