@@ -86,12 +86,12 @@ cd ~/download
 ## 0.14.0
 
 ## 特殊情况下，也可指定具体eksctl版本下载
-## eksctl 0.15.0版本将支持中国区域EKS，目前已有非正式版本 0.15.0-rc.0可用
+## eksctl 0.15.0后版本支持中国区域EKS
 
-curl --silent --location "https://github.com/weaveworks/eksctl/releases/download/0.15.0-rc.0/eksctl_Linux_amd64.tar.gz" | tar xz -C /tmp
+curl --silent --location "https://github.com/weaveworks/eksctl/releases/download/0.17.0-rc.0/eksctl_Linux_amd64.tar.gz" | tar xz -C /tmp
 sudo mv /tmp/eksctl /usr/local/bin/eksctl
 eksctl version
-## 0.15.0-rc.0
+## 0.17.0-rc.0
 
 mkdir -p ~/download
 cd ~/download
