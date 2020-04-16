@@ -72,6 +72,11 @@ proxy:
     port: 8787
     container-volumes: [ "/tmp/#{proxy.userId}:/home/rstudio" ]
     access-groups: [admins]
+  - id: notebook
+    display-name: Jupyter Notebook
+    description: Jupyter Notebook Simple
+    container-image: jupyterhub/k8s-singleuser-sample:0.8.2
+    access-groups: [admins, guest, scientists, mathematicians]
 
 
 spring:

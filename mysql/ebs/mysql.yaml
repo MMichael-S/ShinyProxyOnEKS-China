@@ -1,0 +1,45 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: mysql-ebs
+spec:
+  ports:
+  - port: 3306
+  selector:
+    app: mysql-ebs
+  clusterIP: None
+---
+apiVersion: apps/v1 # for versions before 1.9.0 use apps/v1beta2
+kind: Deployment
+metadata:
+  name: mysql-ebs
+spec:
+  selector:
+    matchLabels:
+      app: mysql-ebs
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: mysql-ebs
+    spec:
+      containers:
+      - image: mysql:5.7
+        name: mysql-ebs
+        env:
+          # Use secret in real usage
+        - name: MYSQL_ROOT_PASSWORD
+          value: Admin911
+        ports:
+        - containerPort: 3306
+          name: mysql
+        volumeMounts:
+        - name: persistent-storage
+          mountPath: /var/lib/mysql
+          subPath: "mysql"
+      volumes:
+      - name: persistent-storage
+        persistentVolumeClaim:
+          claimName: ebs-claim-mysql
+
