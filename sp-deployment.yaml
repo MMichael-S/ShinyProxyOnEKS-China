@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
       - name: shinyproxy
-        image: 467455613745.dkr.ecr.cn-northwest-1.amazonaws.com.cn/shinyproxy-application:share11
+        image: 467455613745.dkr.ecr.cn-northwest-1.amazonaws.com.cn/shinyproxy-application:share13
         imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 8080
